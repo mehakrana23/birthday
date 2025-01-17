@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Letter Animation</title>
+    <style>
+        body {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background: #b784db;
+            overflow: hidden; /* Ensure hearts stay within viewport */
+            flex-direction: column;
+        }
+        .message {
+            font-size: 20px;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin-bottom: 20px;
+        }
+        .envelope {
+            position: relative;
+            cursor: pointer;
+            width: 400px; /* Increased size */
+            height: 320px; /* Increased size */
+        }
+        .back {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            background: #6247aa;
+        }
+        .front {
+            position: absolute;
+            border-right: 200px solid #815ac0;
+            border-top: 160px solid transparent;
+            border-bottom: 160px solid transparent;
+            height: 0;
+            width: 0;
+            top: 0;
+            left: 200px;
+            z-index: 3;
+        }
+        .front:before {
+            content: "";
+            position: absolute;
+            border-left: 200px solid #815ac0;
+            border-top: 160px solid transparent;
+            border-bottom: 160px solid transparent;
+            height: 0;
+            width: 0;
+            top: -160px;
+            left: -200px;
+        }
+        .front:after {
+            content: "";
+            position: absolute;
+            border-bottom: 165px solid #7251b5;
+            border-left: 195px solid transparent;
+            border-right: 195px solid transparent;
+            height: 0;
+            width: 0;
+            top: -5px;
+            left: -200px;
+        }
+        .top {
+            position: absolute;
+            border-top: 165px solid #9163cb;
+            border-left: 195px solid transparent;
+            border-right: 195px solid transparent;
+            height: 0;
+            width: 0;
+            top: 0;
+            transform-origin: top;
+            transition: 0.4s;
+        }
+        .letter {
+            position: absolute;
+            background: white;
+            width: 380px; /* Increased size */
+            height: 300px; /* Increased size */
+            top: 10px;
+            left: 10px;
+            transition: 0.2s;
+            display: none; /* Initially hide the letter */
+        }
+        .heart {
+            background-color: red;
+            height: 30px;
+            width: 30px;
+            position: absolute;
+            bottom: 0;
+            transform: rotate(-45deg);
+            border-radius: 50% 50% 0 0;
+            animation: fly-hearts 3s ease-in-out infinite;
+            opacity: 0;
+        }
+        @keyframes fly-hearts {
+            0% {
+                transform: rotate(-45deg) translateY(100vh);
+                opacity: 1;
+            }
+            100% {
+                transform: rotate(-45deg) translateY(-100vh);
+                opacity: 0;
+            }
+        }
+        .hidden {
+            display: none;
+        }
+        .envelope:hover .top {
+            transform: rotateX(160deg);
+        }
+        .envelope:hover .letter {
+            transform: translateY(-100px);
+            z-index: 2;
+        }
+        .text {
+            font-size: 16px;
+            font-family: Arial, sans-serif;
+            color: black;
+            text-align: center;
+            margin: 10px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">Click the envelope to reveal the letter and start the magic!</div>
+    <div class="envelope" onclick="showHearts()">
+        <div class="back"></div>
+        <div class="front"></div>
+        <div class="top"></div>
+        <div class="letter" id="letter">
+            <p class="text">Happy birthday sejal</p>
+            <p class="text">Happy birthday to you</p>
+            <p class="text">Krishan ji bless you<span class="red-heart">&#10084;</span></p>
+        </div>
+        <div class="heart hidden" id="heart1"></div>
+        <div class="heart hidden" id="heart2"></div>
+        <div class="heart hidden" id="heart3"></div>
+        <div class="heart hidden" id="heart4"></div>
+        <audio id="birthdaySong" src="happy-birthday-254480.mp3"></audio>
+    </div>
+
+    <script>
+        function showHearts() {
+            document.querySelector('.message').style.display = 'none';
+            document.getElementById('letter').style.display = 'block'; // Show the letter
+            document.getElementById('heart1').classList.remove('hidden');
+            document.getElementById('heart2').classList.remove('hidden');
+            document.getElementById('heart3').classList.remove('hidden');
+            document.getElementById('heart4').classList.remove('hidden');
+            var audio = document.getElementById('birthdaySong');
+            audio.play().then(() => {
+                console.log('Audio is playing');
+            }).catch((error) => {
+                console.error('Error playing audio:', error);
+            });
+        }
+    </script>
+</body>
+</html>
